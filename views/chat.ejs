@@ -1,0 +1,84 @@
+<%- include('partials/header') %>
+
+<div class="max-w-2xl mx-auto mt-10 p-4 bg-white shadow rounded-lg">
+  <!-- Logo / Gambar Groq -->
+  <div class="flex justify-center mb-2">
+    <img
+      src="https://images.seeklogo.com/logo-png/60/2/groq-icon-logo-png_seeklogo-605779.png"
+      alt="Groq Logo"
+      class="w-20 h-auto"
+    />
+  </div>
+
+  <h1 class="text-2xl font-bold mb-2 text-center text-gray-800">
+    Chatbot by Groq
+  </h1>
+
+  <div
+    id="chat-box"
+    class="h-80 overflow-y-auto border p-3 rounded mb-4 bg-gray-100"
+  >
+    <% messages.forEach(msg => { %>
+    <div class="mb-2">
+      <div class="font-semibold text-blue-600">User:</div>
+      <div class="mb-1"><%= msg.user_message %></div>
+      <div class="font-semibold text-green-600">Bot:</div>
+      <div><%= msg.bot_response %></div>
+    </div>
+    <% }) %>
+  </div>
+
+  <form id="chat-form" class="flex gap-2">
+    <input
+      type="text"
+      id="message"
+      placeholder="Tulis pesan..."
+      class="flex-1 p-2 border rounded"
+    />
+    <button
+      type="submit"
+      class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+    >
+      Kirim
+    </button>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById("chat-form");
+  const input = document.getElementById("message");
+  const chatBox = document.getElementById("chat-box");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    const userDiv = document.createElement("div");
+    userDiv.classList.add("mb-2");
+    userDiv.innerHTML = `<div class="font-semibold text-blue-600">User:</div><div class="mb-1">${msg}</div>`;
+    chatBox.appendChild(userDiv);
+
+    input.value = "";
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    const res = await fetch("/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: msg }),
+    });
+    const data = await res.json();
+
+    if (data.ok) {
+      const botDiv = document.createElement("div");
+      botDiv.classList.add("mb-2");
+      botDiv.innerHTML = `<div class="font-semibold text-green-600">Bot:</div><div>${data.reply}</div>`;
+      chatBox.appendChild(botDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    } else {
+      alert("Error: " + data.error);
+    }
+  });
+</script>
+
+<%- include('partials/footer') %>
