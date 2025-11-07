@@ -43,14 +43,9 @@ Dibangun menggunakan **Node.js + Express.js + EJS + MySQL (XAMPP)**, dengan tamp
 
    CREATE DATABASE chatbot_db;
    USE chatbot_db;
-   CREATE TABLE messages (
-   id INT AUTO_INCREMENT PRIMARY KEY,
-   user_message TEXT NOT NULL,
-   bot_response TEXT NOT NULL,
-   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-   );
+   CREATE TABLE messages (id INT AUTO_INCREMENT PRIMARY KEY, user_message TEXT NOT NULL, bot_response TEXT NOT NULL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
 
-4. Konfigurasi File .env
+5. Konfigurasi File .env
    Buat file .env di root proyek:
 
    DB_HOST=localhost
@@ -63,7 +58,7 @@ Dibangun menggunakan **Node.js + Express.js + EJS + MySQL (XAMPP)**, dengan tamp
    GROQ_API_KEY=ISI_API_KEY_KAMU
    GROQ_MODEL=llama-3.1-8b-instant
 
-5. Menjalankan Aplikasi
+6. Menjalankan Aplikasi
    node app.js
 
    Akses di browser:
