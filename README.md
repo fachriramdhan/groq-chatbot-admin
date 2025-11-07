@@ -33,18 +33,31 @@ Dibangun menggunakan **Node.js + Express.js + EJS + MySQL (XAMPP)**, dengan tamp
 
 chatbot/
 │
+
 ├── app.js # Server utama (Express)
+
 ├── db.js # Koneksi database MySQL
+
 ├── .env # Variabel lingkungan (jangan upload ke GitHub)
+
 ├── package.json
+
 │
+
 ├── views/ # Folder untuk file EJS
+
 │ ├── chat.ejs
+
 │ ├── partials/
+
 │ │ ├── header.ejs
+
 │ │ └── footer.ejs
+
 │ └── layouts/
+
 │
+
 └── public/ # File static (CSS, JS, Images)
 
 ---
